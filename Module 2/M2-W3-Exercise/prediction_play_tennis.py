@@ -19,24 +19,6 @@ train_data = create_train_data()
 print(train_data)
 
 
-def create_train_data():
-    data = [['Sunny', 'Hot', 'High', 'Weak', 'No'],
-            ['Sunny', 'Hot', 'High', 'Strong', 'No'],
-            ['Overcast', 'Hot', 'High', 'Weak', 'Yes'],
-            ['Rain', 'Mid', 'High', 'Weak', 'Yes'],
-            ['Rain', 'Cool', 'Normal', 'Weak', 'Yes'],
-            ['Rain', 'Cool', 'Normal', 'Strong', 'No'],
-            ['Overcast', 'Cool', 'Normal', 'Strong', 'Yes'],
-            ['Overcast', 'Mild', 'High', 'Weak', 'No'],
-            ['Sunny', 'Cool', 'Normal', 'Weak', 'Yes'],
-            ['Rain', 'Mild', 'Normal', 'Weak', 'Yes']]
-    return np.array(data)
-
-
-train_data = create_train_data()
-print(train_data)
-
-
 def compute_prior_probability(train_data):
     y_unique = ['No', 'Yes']
     prior_probability = np.zeros(len(y_unique))
@@ -127,24 +109,24 @@ def train_naive_bayes(train_data):
     return prior_probability, conditional_probability, list_x_name
 
 
-def prediction_play_tennis(X, list_x_name, prior_probability, conditional_probability):
-    x1 = get_index_from_value(X[0], list_x_name[0])
-    x2 = get_index_from_value(X[1], list_x_name[1])
-    x3 = get_index_from_value(X[2], list_x_name[2])
-    x4 = get_index_from_value(X[3], list_x_name[3])
+def prediction_play_tennis(x, list_x_name, prior_probability, conditional_probability):
+    x1 = get_index_from_value(x[0], list_x_name[0])
+    x2 = get_index_from_value(x[1], list_x_name[1])
+    x3 = get_index_from_value(x[2], list_x_name[2])
+    x4 = get_index_from_value(x[3], list_x_name[3])
 
     p0 = prior_probability[0]
     p1 = prior_probability[1]
 
-    p0 *= conditional_probability[0][X[0]]['No']
-    p0 *= conditional_probability[1][X[1]]['No']
-    p0 *= conditional_probability[2][X[2]]['No']
-    p0 *= conditional_probability[3][X[3]]['No']
+    p0 *= conditional_probability[0][x[0]]['No']
+    p0 *= conditional_probability[1][x[1]]['No']
+    p0 *= conditional_probability[2][x[2]]['No']
+    p0 *= conditional_probability[3][x[3]]['No']
 
-    p1 *= conditional_probability[0][X[0]]['Yes']
-    p1 *= conditional_probability[1][X[1]]['Yes']
-    p1 *= conditional_probability[2][X[2]]['Yes']
-    p1 *= conditional_probability[3][X[3]]['Yes']
+    p1 *= conditional_probability[0][x[0]]['Yes']
+    p1 *= conditional_probability[1][x[1]]['Yes']
+    p1 *= conditional_probability[2][x[2]]['Yes']
+    p1 *= conditional_probability[3][x[3]]['Yes']
 
     if p0 > p1:
         y_pred = 0
