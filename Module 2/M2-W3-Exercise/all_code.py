@@ -17,6 +17,7 @@ def create_train_data():
 
 train_data = create_train_data()
 
+
 def compute_prior_probability(train_data):
     y_unique = ['No', 'Yes']
     prior_probability = np.zeros(len(y_unique))
@@ -52,6 +53,24 @@ def compute_conditional_probability(train_data):
 
 conditional_probability, list_x_name = compute_conditional_probability(
     train_data)
+
+
+def get_index_from_value(feature_name, list_features):
+    indices = np.nonzero(list_features == feature_name)[0]
+    if indices.size > 0:
+        return indices[0]
+    else:
+        raise ValueError(f"{feature_name} not found in list_features")
+
+
+train_data = create_train_data()
+_, list_x_name = compute_conditional_probability(train_data)
+outlook = list_x_name[0]
+
+i1 = get_index_from_value("Overcast", outlook)
+i2 = get_index_from_value("Rain", outlook)
+i3 = get_index_from_value("Sunny", outlook)
+print(i1, i2, i3)
 
 
 def train_naive_bayes(train_data):
